@@ -1,4 +1,8 @@
 package 需求实现;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 /**
  * 
 * <p>Title: Test1</p>  
@@ -22,5 +26,13 @@ public class Test1 {
 		 * 5. 如果是查询，需要从结果集获取数据
 		 * 6. 关闭所有资源
 		 */
+		//1.创建连接对象
+		Connection conn = null;
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","scott","scott123");
+		} catch (Exception e) {
+			
+		}
 	}
 }
