@@ -2,6 +2,7 @@ package 需求实现;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 
 /**
  * 
@@ -28,10 +29,15 @@ public class Test1 {
 		 */
 		//1.创建连接对象
 		Connection conn = null;
+		Statement stmt = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","scott","scott123");
+			//2. 创建执行sql语句的命令对象
+			stmt = conn.createStatement();
 		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
 			
 		}
 	}
