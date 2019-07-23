@@ -17,3 +17,7 @@ E:\app\yanbo\product\11.2.0\dbhome_1\jdbc\lib\ojdbc6.jar
 ![](Images/4.png)
 ![](Images/5.png)
 ![](Images/6.png)
+
+4. 打开 **pl/sql** 工具，测试是否可以操作数据库，如图所示表示可以操作
+
+![](Images/7.png)
