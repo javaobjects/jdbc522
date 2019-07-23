@@ -35,6 +35,8 @@ public class Test1 {
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","scott","scott123");
 			//2. 创建执行sql语句的命令对象
 			stmt = conn.createStatement();
+			//3. 执行sql语句
+			String query_sal_by_empno = "select sal from emp where empno = " + 7369;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
