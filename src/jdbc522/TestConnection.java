@@ -13,6 +13,7 @@ public class TestConnection {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			//获取连接对象
 			Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","scott","scott123");
+			System.out.println("conn == null?" + (conn == null) + ": " +conn);//conn == null?false: oracle.jdbc.driver.T4CConnection@27f8302d
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
