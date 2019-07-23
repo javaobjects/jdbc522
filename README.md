@@ -6,3 +6,6 @@
 E:\app\yanbo\product\11.2.0\dbhome_1\jdbc\lib\ojdbc6.jar
 ```
 
+2. 添加到内路径
+
+![](Images/1.png)
