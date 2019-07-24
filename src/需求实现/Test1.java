@@ -40,7 +40,11 @@ public class Test1 {
 			String query_sal_by_empno = "select sal from emp where empno = " + 7369;
 			//4. 执行sql语句、如果是查询获取结果集
 			ResultSet rs = stmt.executeQuery(query_sal_by_empno);
-			
+			//5. 如果是查询，需要从结果集获取数据
+			if(rs.next()) {
+				Double sal = rs.getDouble("sal");
+				System.out.println(sal);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
