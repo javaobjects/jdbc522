@@ -3,6 +3,7 @@ package 需求实现;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -31,6 +32,7 @@ public class Test1 {
 		//1.创建连接对象
 		Connection conn = null;
 		Statement stmt = null;
+		ResultSet rs = null;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl","scott","scott123");
@@ -39,7 +41,7 @@ public class Test1 {
 			//3. 执行sql语句
 			String query_sal_by_empno = "select sal from emp where empno = " + 7369;
 			//4. 执行sql语句、如果是查询获取结果集
-			ResultSet rs = stmt.executeQuery(query_sal_by_empno);
+			rs = stmt.executeQuery(query_sal_by_empno);
 			//5. 如果是查询，需要从结果集获取数据
 			if(rs.next()) {
 				Double sal = rs.getDouble("sal");
@@ -48,7 +50,20 @@ public class Test1 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			
+			//6. 关闭所有资源
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if(stmt != null) {
+					stmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
