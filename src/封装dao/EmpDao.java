@@ -2,6 +2,7 @@ package 封装dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
@@ -21,6 +22,43 @@ public class EmpDao {
 //	1.根据id查询某个员工信息
 	public Emp queryEmpByEmpno(Integer empno) {
 		Emp emp = null;
+		
+		/**
+		 * 1.连接数据库
+		 * 2.Statement操作对象传送sql语句到数据库并执行
+		 * 3.获取结果集ResultSet
+		 * 4.把结果集中的数据转化为Emp对象
+		 */
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery("select empno,ename,job,hiredate,sal from emp where empno = " + empno);
+			//4.把结果集中的数据转化为Emp对象
+			//目标是把结果集中的数据取出来放入Emp对象中
+			emp = new Emp();
+			if(rs.next()) {//确认结果集中只有一条数据，所以只需要游标
+				System.out.println(rs.getDouble("sal"));//括号中的sal来自结果集，是列名
+				System.out.println(rs.getString("ename"));
+				System.out.println(rs.getInt("empno"));
+				System.out.println(rs.getString("job"));
+				System.out.println(rs.getDate("hiredate"));
+				
+				emp.setEmpno(rs.getInt("empno"));
+				emp.setEname(rs.getString("ename"));
+				emp.setJob(rs.getString("job"));
+				emp.setSal(rs.getDouble("sal"));
+				emp.setHiredate(rs.getDate("hiredate"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.release(conn, stmt, rs);
+		}
 		return emp;
 	}
 //	2.根据id查询某个员工的工资  √

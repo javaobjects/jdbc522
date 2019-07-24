@@ -15,9 +15,14 @@ public class TestEmpDao {
 		/**
 		 * 测试批量删除
 		 */
+//		EmpDao dao = new EmpDao();
+//		Integer[] empnos = {7566,7698};
+//		boolean tmp = dao.deleteEmp_ok(empnos);
+//		System.out.println(tmp);
+		
 		EmpDao dao = new EmpDao();
-		Integer[] empnos = {7566,7698};
-		boolean tmp = dao.deleteEmp_ok(empnos);
-		System.out.println(tmp);
+		
+		Emp emp = dao.queryEmpByEmpno(7566);
+		System.out.println(emp);
 	}
 }
