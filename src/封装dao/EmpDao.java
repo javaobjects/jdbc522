@@ -276,6 +276,36 @@ public class EmpDao {
 //	9.添加一个员工信息
 	public int addEmp(Emp emp) {
 		int rows = 0;
+		
+		Connection conn=null;
+		PreparedStatement stmt=null;
+		
+		try {
+			conn=DBUtil.getConnection();
+			stmt=conn.prepareStatement("insert into emp (ename,job,sal,hiredate,empno) values (?,?,?,?,?)");
+			/*
+			 * 注意：在执行更新的sql语句之前，需要先给占位符赋值
+			 */
+	        stmt.setString(1, emp.getEname());
+			stmt.setString(2,emp.getJob());
+			stmt.setDouble(3, emp.getSal());
+			/*Date date=emp.getHiredate();
+			long time=date.getTime();
+			java.sql.Date date2=new java.sql.Date(time);*/
+			stmt.setDate(4,new java.sql.Date(emp.getHiredate().getTime()));
+			stmt.setInt(5,emp.getEmpno());
+			
+			/*
+			 * 执行更新
+			 */
+			rows=stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally
+		{
+			DBUtil.release(conn, stmt, null);
+		}
+		
 		return rows;
 	}
 }

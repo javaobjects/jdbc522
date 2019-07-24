@@ -40,5 +40,6 @@ public class TestEmpDao {
 		
 		
 		//dao.updateEmp(emp);
+		dao.addEmp(emp);
 	}
 }
