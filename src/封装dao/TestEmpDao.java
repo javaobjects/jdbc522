@@ -1,6 +1,6 @@
 package 封装dao;
 
-import java.util.List;
+import java.util.Date;
 
 public class TestEmpDao {
 
@@ -30,5 +30,15 @@ public class TestEmpDao {
 //		List<Emp> emps = dao.queryAllEmp();
 //		List<Emp> emps=dao.queryEmpLimitFive();
 //		System.out.println(emps.toString());
+		
+		Emp emp=new Emp();
+		emp.setEname("sunyanchun");
+		emp.setSal(0.1);
+		emp.setEmpno(666);
+		emp.setHiredate(new Date());
+		emp.setJob("ceo");
+		
+		
+		//dao.updateEmp(emp);
 	}
 }
