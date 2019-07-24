@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class EmpDao {
 			//4.把结果集中的数据转化为Emp对象
 			//目标是把结果集中的数据取出来放入Emp对象中
 			emp = new Emp();
-			if(rs.next()) {//确认结果集中只有一条数据，所以只需要游标
+			if(rs.next()) {//确认结果集中只有一条数据，所以只需要游标移动一次
 				System.out.println(rs.getDouble("sal"));//括号中的sal来自结果集，是列名
 				System.out.println(rs.getString("ename"));
 				System.out.println(rs.getInt("empno"));
@@ -77,7 +78,39 @@ public class EmpDao {
 	
 //	4.根据所有员工信息
 	public List<Emp> queryAllEmp(){
-		List<Emp> list = null;
+		List<Emp> list = new ArrayList<>();
+		
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery("select empno,ename,job,sal,hiredate from emp");
+			//如何把数据从结果集中取出来，放入list集合呢？
+			while(rs.next()) {//确认结果集中只有一条数据，就要使用while循环
+//				System.out.println(rs.getDouble("sal"));//括号中的sal来自结果集，是列名
+//				System.out.println(rs.getString("ename"));
+//				System.out.println(rs.getInt("empno"));
+//				System.out.println(rs.getString("job"));
+//				System.out.println(rs.getDate("hiredate"));
+				
+				Emp emp = new Emp();
+				emp.setEmpno(rs.getInt("empno"));
+				emp.setEname(rs.getString("ename"));
+				emp.setJob(rs.getString("job"));
+				emp.setSal(rs.getDouble("sal"));
+				emp.setHiredate(rs.getDate("hiredate"));
+				
+				list.add(emp);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.release(conn, stmt, rs);
+		}
 		return list;
 	}
 

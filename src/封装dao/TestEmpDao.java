@@ -1,5 +1,7 @@
 package 封装dao;
 
+import java.util.List;
+
 public class TestEmpDao {
 
 	public static void main(String[] args) {
@@ -22,7 +24,11 @@ public class TestEmpDao {
 		
 		EmpDao dao = new EmpDao();
 		
-		Emp emp = dao.queryEmpByEmpno(7566);
-		System.out.println(emp);
+//		Emp emp = dao.queryEmpByEmpno(7566);
+//		System.out.println(emp);
+		
+		List<Emp> emps = dao.queryAllEmp();
+		
+		System.out.println(emps.toString());
 	}
 }

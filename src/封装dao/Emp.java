@@ -52,7 +52,7 @@ public class Emp {
 	@Override
 	public String toString() {
 		return "Emp [empno=" + empno + ", ename=" + ename + ", job=" + job + ", sal=" + sal + ", hiredate=" + hiredate
-				+ "]";
+				+ "]\n";
 	}
 	
 }
