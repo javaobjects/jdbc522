@@ -2,6 +2,7 @@ package 需求实现;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
@@ -37,6 +38,9 @@ public class Test1 {
 			stmt = conn.createStatement();
 			//3. 执行sql语句
 			String query_sal_by_empno = "select sal from emp where empno = " + 7369;
+			//4. 执行sql语句、如果是查询获取结果集
+			ResultSet rs = stmt.executeQuery(query_sal_by_empno);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
