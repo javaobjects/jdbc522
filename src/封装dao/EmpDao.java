@@ -121,6 +121,35 @@ public class EmpDao {
 	 */
 	public List<Emp> queryEmpLimitFive(){
 		List<Emp> list = null;
+		Connection conn=null;
+		Statement stmt=null;
+		ResultSet rs=null;
+		
+		try {
+			conn=DBUtil.getConnection();
+			stmt=conn.createStatement();
+			
+			rs=stmt.executeQuery("select empno,ename,sal,hiredate,job from emp e "
+					+ "where (select count(1) from emp where sal>e.sal)<=4");
+			//如何把数据从结果集中取出来放入list集合呢？
+			
+			while(rs.next()){//确认结果集中有多于一条数据时，就要使用while循环
+				
+				Emp emp=new Emp();
+				emp.setEmpno(rs.getInt("empno"));
+				emp.setEname(rs.getString("ename"));
+				emp.setJob(rs.getString("job"));
+				emp.setSal(rs.getDouble("sal"));
+				emp.setHiredate(rs.getDate("hiredate"));
+				
+				list.add(emp);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally
+		{
+			DBUtil.release(conn, stmt, rs);
+		}
 		return list;
 	}
 

@@ -27,8 +27,8 @@ public class TestEmpDao {
 //		Emp emp = dao.queryEmpByEmpno(7566);
 //		System.out.println(emp);
 		
-		List<Emp> emps = dao.queryAllEmp();
-		
-		System.out.println(emps.toString());
+//		List<Emp> emps = dao.queryAllEmp();
+//		List<Emp> emps=dao.queryEmpLimitFive();
+//		System.out.println(emps.toString());
 	}
 }
