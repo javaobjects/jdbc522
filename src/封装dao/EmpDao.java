@@ -1,7 +1,9 @@
 package 封装dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -71,6 +73,23 @@ public class EmpDao {
 //	7.批量删除
 	public boolean deleteEmp(Integer[] empnos) {
 		boolean result = false;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "delete from emp where empno = ?";
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.prepareStatement(sql);
+			
+			for (Integer id:empnos) {
+				stmt.setInt(1, id);//给sql语句中的问号（占位符）赋值，1表示索引，id是值
+				stmt.addBatch();//批处理的意思，因为sql语句要执行多次，那么一次执行完
+			}
+			
+			int[] a = stmt.executeBatch();
+			System.out.println(Arrays.toString(a));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 
