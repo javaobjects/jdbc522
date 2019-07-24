@@ -1,5 +1,7 @@
 package 封装dao;
 
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -51,6 +53,18 @@ public class EmpDao {
 //	6.根据id删除某个员工
 	public int deleteEmpByEmpno(Integer empno) {
 		int rows = 0;
+		Connection conn = null;
+		Statement stmt = null;
+		try {
+			conn = DBUtil.getConnection();
+			stmt = conn.createStatement();
+			String delete_emp_by_empno = "delete from emp where empno = " + empno;
+			rows = stmt.executeUpdate(delete_emp_by_empno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.release(conn, stmt, null);
+		}
 		return rows;
 	}
 
